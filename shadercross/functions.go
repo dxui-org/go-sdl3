@@ -6,9 +6,9 @@ import (
 	"runtime"
 	"unsafe"
 
-	"github.com/Zyko0/go-sdl3/internal"
-	"github.com/Zyko0/go-sdl3/sdl"
-	puregogen "github.com/Zyko0/purego-gen"
+	"github.com/dxui-org/go-sdl3/internal"
+	"github.com/dxui-org/go-sdl3/sdl"
+	puregogen "github.com/dxui-org/go-sdl3/internal/puregoffi"
 	"github.com/ebitengine/purego"
 )
 

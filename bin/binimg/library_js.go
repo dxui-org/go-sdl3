@@ -2,7 +2,7 @@
 
 package binimg
 
-import "github.com/Zyko0/go-sdl3/img"
+import "github.com/dxui-org/go-sdl3/img"
 
 type library struct{}
 

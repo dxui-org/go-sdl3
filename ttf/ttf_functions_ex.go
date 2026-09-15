@@ -1,6 +1,6 @@
 package ttf
 
-import "github.com/Zyko0/go-sdl3/sdl"
+import "github.com/dxui-org/go-sdl3/sdl"
 
 var (
 	//puregogen:library path:windows=ttf.dll path:unix=ttf.so alias=ttf

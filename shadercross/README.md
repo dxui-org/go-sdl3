@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Zyko0/go-sdl3/bin/binsdl"
-	"github.com/Zyko0/go-sdl3/shadercross"
+	"github.com/dxui-org/go-sdl3/bin/binsdl"
+	"github.com/dxui-org/go-sdl3/shadercross"
 )
 
 var (

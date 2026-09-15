@@ -6,7 +6,7 @@ import (
 	"errors"
 	"syscall/js"
 
-	"github.com/Zyko0/go-sdl3/internal"
+	"github.com/dxui-org/go-sdl3/internal"
 )
 
 // We can just initialize everything here in js/wasm env

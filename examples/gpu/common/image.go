@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"unsafe"
 
-	"github.com/Zyko0/go-sdl3/examples/gpu/assets"
+	"github.com/dxui-org/go-sdl3/examples/gpu/assets"
 	"github.com/mdouchement/hdr"
 	"github.com/mdouchement/hdr/codec/rgbe"
 	"golang.org/x/image/bmp"

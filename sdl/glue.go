@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/Zyko0/go-sdl3/internal"
+	"github.com/dxui-org/go-sdl3/internal"
 )
 
 var EndLoop = errors.New("graceful termination")

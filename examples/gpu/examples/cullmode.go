@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/Zyko0/go-sdl3/examples/gpu/common"
-	"github.com/Zyko0/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/examples/gpu/common"
+	"github.com/dxui-org/go-sdl3/sdl"
 )
 
 type CullMode struct {

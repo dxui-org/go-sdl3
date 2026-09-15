@@ -1,8 +1,8 @@
 package mixer
 
 import (
-	internal "github.com/Zyko0/go-sdl3/internal"
-	"github.com/Zyko0/go-sdl3/sdl"
+	internal "github.com/dxui-org/go-sdl3/internal"
+	"github.com/dxui-org/go-sdl3/sdl"
 )
 
 // Types

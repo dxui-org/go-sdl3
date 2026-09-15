@@ -10,8 +10,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Zyko0/go-sdl3/internal"
-	"github.com/Zyko0/go-sdl3/mixer"
+	"github.com/dxui-org/go-sdl3/internal"
+	"github.com/dxui-org/go-sdl3/mixer"
 )
 
 type library struct {

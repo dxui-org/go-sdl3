@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Zyko0/go-sdl3/examples/gpu/assets"
-	"github.com/Zyko0/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/examples/gpu/assets"
+	"github.com/dxui-org/go-sdl3/sdl"
 )
 
 func LoadShader(

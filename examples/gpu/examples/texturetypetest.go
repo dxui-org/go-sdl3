@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"unsafe"
 
-	"github.com/Zyko0/go-sdl3/examples/gpu/common"
-	"github.com/Zyko0/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/examples/gpu/common"
+	"github.com/dxui-org/go-sdl3/sdl"
 )
 
 // NOTE: This program is intended purely as a test suite for SDL GPU backends.

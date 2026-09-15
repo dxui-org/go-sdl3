@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/Zyko0/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/sdl"
 )
 
 type Context struct {

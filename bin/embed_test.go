@@ -6,16 +6,14 @@ import (
 	"runtime/debug"
 	"testing"
 
-	"github.com/Zyko0/go-sdl3/bin/binimg"
-	"github.com/Zyko0/go-sdl3/bin/binmidi"
-	"github.com/Zyko0/go-sdl3/bin/binmix"
-	"github.com/Zyko0/go-sdl3/bin/binsdl"
-	"github.com/Zyko0/go-sdl3/bin/binttf"
-	"github.com/Zyko0/go-sdl3/img"
-	"github.com/Zyko0/go-sdl3/midi"
-	"github.com/Zyko0/go-sdl3/mixer"
-	"github.com/Zyko0/go-sdl3/sdl"
-	"github.com/Zyko0/go-sdl3/ttf"
+	"github.com/dxui-org/go-sdl3/bin/binimg"
+	"github.com/dxui-org/go-sdl3/bin/binmix"
+	"github.com/dxui-org/go-sdl3/bin/binsdl"
+	"github.com/dxui-org/go-sdl3/bin/binttf"
+	"github.com/dxui-org/go-sdl3/img"
+	"github.com/dxui-org/go-sdl3/mixer"
+	"github.com/dxui-org/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/ttf"
 )
 
 func Test_EmbeddedBinaries(t *testing.T) {
@@ -48,18 +46,6 @@ func Test_EmbeddedBinaries(t *testing.T) {
 			t.Log("SDL_image version:", v.String())
 		})
 	})
-
-	t.Run("SDL_native_midi", func(t *testing.T) {
-		// There is no GetVersion to call, so Init is the only proof the
-		// symbols resolved. Runners have no MIDI device, so a failure here
-		// says nothing about the embedded binary.
-		t.Run("Init", func(t *testing.T) {
-			if err := midi.Init(); err != nil {
-				t.Skip("SDL_native_midi init:", err)
-			}
-			midi.Quit()
-		})
-	})
 }
 
 func TestMain(m *testing.M) {
@@ -74,7 +60,6 @@ func TestMain(m *testing.M) {
 	defer binttf.Load().Unload()
 	defer binmix.Load().Unload()
 	defer binimg.Load().Unload()
-	defer binmidi.Load().Unload()
 
 	defer ttf.Quit()
 	defer sdl.Quit()

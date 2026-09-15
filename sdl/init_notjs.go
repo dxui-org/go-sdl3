@@ -6,8 +6,8 @@ import (
 	"errors"
 	"runtime"
 
-	"github.com/Zyko0/go-sdl3/internal"
-	puregogen "github.com/Zyko0/purego-gen"
+	"github.com/dxui-org/go-sdl3/internal"
+	puregogen "github.com/dxui-org/go-sdl3/internal/puregoffi"
 )
 
 func init() {

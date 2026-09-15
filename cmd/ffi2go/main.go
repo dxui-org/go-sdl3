@@ -5,19 +5,22 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"slices"
 	"strings"
 
-	"github.com/Zyko0/go-sdl3/cmd/internal/assets"
+	"github.com/dxui-org/go-sdl3/cmd/internal/assets"
 	"github.com/dave/jennifer/jen"
 )
 
 var (
 	cfg        *assets.Config
 	ffiEntries []*assets.FFIEntry
+	apiRefCode string
 )
 
 const (
@@ -158,17 +161,62 @@ func trimPrefix(e *assets.FFIEntry) {
 	}
 }
 
+type refFunc struct {
+	Name        string
+	Description string
+}
+
 var (
 	uniqueTypes        = map[string]struct{}{}
-	uniqueAPIFunctions map[string]*assets.APIRefEntry
+	uniqueAPIFunctions = map[string]refFunc{}
 )
 
-// AllTypesFromAPIRef seeds the types the public API references, keeping only
-// the ones this library owns so unrelated system types are never emitted.
 func AllTypesFromAPIRef() {
-	for _, e := range uniqueAPIFunctions {
-		for _, t := range e.Types {
-			uniqueTypes[t] = struct{}{}
+	for _, l := range strings.Split(apiRefCode, "\n") {
+		l = strings.TrimSpace(l)
+		l = strings.ReplaceAll(l, "const ", "")
+		l = strings.ReplaceAll(l, " * ", "* ")
+		l = strings.ReplaceAll(l, " ** ", "** ")
+		l = strings.ReplaceAll(l, "* * ", "** ")
+		switch {
+		case strings.HasPrefix(l, "//"):
+			continue
+		case strings.HasPrefix(l, "#"):
+			continue
+		case l == "":
+			continue
+		default:
+			idx := strings.Index(l, "//")
+			comment := ""
+			if idx != -1 {
+				comment = strings.TrimSpace(l[idx+2:])
+				comment = strings.TrimSuffix(comment, "\n")
+				l = l[:idx]
+			}
+			// Parse function prototype
+			nameIdx := strings.Index(l[1:], cfg.Prefix)
+			// Function name
+			name := l[nameIdx+1 : strings.Index(l, "(")]
+			// Function comment
+			comment = name + " => " + comment
+			uniqueAPIFunctions[name] = refFunc{
+				Name:        name,
+				Description: comment,
+			}
+			// Return type
+			typ := strings.TrimSpace(l[:nameIdx])
+			typ = strings.ReplaceAll(typ, "*", "")
+			uniqueTypes[typ] = struct{}{}
+			// Argument types
+			args := l[strings.Index(l, "(")+1 : strings.Index(l, ")")]
+			argsParts := strings.Split(args, ", ")
+			for _, at := range argsParts {
+				argParts := strings.Split(at, " ")
+				typ = strings.TrimSpace(strings.Join(argParts[:len(argParts)-1], " "))
+				typ = strings.ReplaceAll(typ, "*", "")
+				typ = strings.ReplaceAll(typ, "struct ", "")
+				uniqueTypes[typ] = struct{}{}
+			}
 		}
 	}
 	for tp := range uniqueTypes {
@@ -196,7 +244,7 @@ func jenType(stmt *jen.Statement, typ string) *jen.Statement {
 		}
 		path := parts[0]
 		if path == "sdl" {
-			path = "github.com/Zyko0/go-sdl3/sdl"
+			path = "github.com/dxui-org/go-sdl3/sdl"
 		}
 		if prefix != "" {
 			stmt.Id(prefix).Qual(path, parts[1])
@@ -219,12 +267,11 @@ func conditionalPrepend(head, tail string, cond bool) string {
 }
 
 func main() {
-	var configPath, ffiPath, annotationsPath, apirefPath string
+	var configPath, ffiPath, annotationsPath string
 
 	flag.StringVar(&configPath, "config", "", "path to config.json file")
 	flag.StringVar(&ffiPath, "ffi", "", "path to ffi.json file")
 	flag.StringVar(&annotationsPath, "annotations", "", "path to annotations.csv file")
-	flag.StringVar(&apirefPath, "apiref", "", "path to apiref csv file")
 	flag.Parse()
 
 	// Load config
@@ -250,11 +297,18 @@ func main() {
 		log.Fatal("couldn't load wiki annotations file: ", err)
 	}
 
-	// Load the public API surface
-	uniqueAPIFunctions, err = assets.LoadAPIRef(apirefPath)
+	// Download API ref code
+	resp, err := http.Get(cfg.QuickAPIRefURL)
 	if err != nil {
-		log.Fatal("couldn't load apiref file: ", err)
+		log.Fatal("couldn't download api ref: ", err)
 	}
+	b, err = io.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal("couldn't read http response body: ", err)
+	}
+	apiRefCode = string(b)
+	_, apiRefCode, _ = strings.Cut(apiRefCode, "```c")
+	apiRefCode, _, _ = strings.Cut(apiRefCode, "```")
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -395,7 +449,7 @@ func main() {
 					))
 				}
 				g.Add(jen.Comment(
-					"// " + ref.Name + " => " + ref.Description,
+					"// " + ref.Description,
 				))
 				if slices.Contains(cfg.SDLFreeFunctions, e.PrefixedName(cfg.Prefix)) {
 					g.Add(jen.Comment(

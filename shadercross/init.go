@@ -5,7 +5,7 @@ package shadercross
 import (
 	"runtime"
 
-	puregogen "github.com/Zyko0/purego-gen"
+	puregogen "github.com/dxui-org/go-sdl3/internal/puregoffi"
 )
 
 // Path returns the library installation path based on the operating

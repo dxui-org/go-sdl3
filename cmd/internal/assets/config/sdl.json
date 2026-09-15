@@ -61,9 +61,7 @@
         "SDL_ShowOpenFileDialog",
         "SDL_ShowSaveFileDialog",
         "SDL_AttachVirtualJoystick",
-        "SDL_CreateGPURenderState",
-        "SDL_GetPlatform",
-        "SDL_GetPenDeviceType"
+        "SDL_CreateGPURenderState"
     ],
     "allowlisted_functions": [
         "SDL_free"

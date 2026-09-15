@@ -1,6 +1,7 @@
 # go-sdl3
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/zyko0/go-sdl3.svg)](https://pkg.go.dev/github.com/zyko0/go-sdl3)
+[![Go Reference](https://pkg.go.dev/badge/github.com/dxui-org/go-sdl3.svg)](https://pkg.go.dev/github.com/dxui-org/go-sdl3)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dxui-org/go-sdl3)](https://goreportcard.com/report/github.com/dxui-org/go-sdl3)
 
 [SDL3](https://wiki.libsdl.org/SDL3/FrontPage) bindings for Go in pure Go (thanks to [ebitengine/purego](https://github.com/ebitengine/purego)).
 
@@ -29,7 +30,7 @@ Libraries:
 
 Platforms:
 - Windows (amd64, arm64)
-- Linux (amd64, arm64)
+- Linux (amd64)
 - MacOS (amd64, arm64)
 - WebAssembly (experimental)
 
@@ -52,8 +53,8 @@ sdl.LoadLibrary(sdl.Path()) // "SDL3.dll", "libSDL3.so.0", "libSDL3.dylib"
 package main
 
 import (
-	"github.com/Zyko0/go-sdl3/sdl"
-	"github.com/Zyko0/go-sdl3/bin/binsdl"
+	"github.com/dxui-org/go-sdl3/sdl"
+	"github.com/dxui-org/go-sdl3/bin/binsdl"
 )
 
 func main() {
@@ -97,7 +98,7 @@ The [examples](./examples/) folder contains:
   - [examples/renderer](./examples/renderer/)
   - [examples/input](./examples/input/)
 - GPU API examples (https://github.com/TheSpydog/SDL_gpu_examples)
-  - [examples/gpu](./examples/gpu/) thanks to [@makinori](https://github.com/makinori) [#21](https://github.com/Zyko0/go-sdl3/pull/21)
+  - [examples/gpu](./examples/gpu/) thanks to [@makinori](https://github.com/makinori) [upstream #21](https://github.com/Zyko0/go-sdl3/pull/21)
 
 External examples:
 - Clay UI renderer: [TotallyGamerJet/clay/examples/sdl3](https://github.com/TotallyGamerJet/clay/blob/main/examples/sdl3/main.go)

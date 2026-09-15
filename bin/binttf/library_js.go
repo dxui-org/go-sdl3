@@ -2,7 +2,7 @@
 
 package binttf
 
-import "github.com/Zyko0/go-sdl3/ttf"
+import "github.com/dxui-org/go-sdl3/ttf"
 
 type library struct{}
 

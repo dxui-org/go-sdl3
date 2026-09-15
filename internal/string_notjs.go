@@ -5,7 +5,7 @@ package internal
 import (
 	"unsafe"
 
-	puregogen "github.com/Zyko0/purego-gen"
+	puregogen "github.com/dxui-org/go-sdl3/internal/puregoffi"
 )
 
 // ClonePtrString returns a newly allocated string from a uintptr

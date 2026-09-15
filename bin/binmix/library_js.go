@@ -2,7 +2,7 @@
 
 package binmix
 
-import "github.com/Zyko0/go-sdl3/mixer"
+import "github.com/dxui-org/go-sdl3/mixer"
 
 type library struct{}
 

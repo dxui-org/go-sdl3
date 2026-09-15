@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/Zyko0/go-sdl3/cmd/internal/assets"
+	"github.com/dxui-org/go-sdl3/cmd/internal/assets"
 )
 
 var (
